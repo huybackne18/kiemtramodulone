@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản lý công nhân</title>
+</head>
+<body>
+
+<header>
+  <h1>Quản Lý Công Nhân Phân Xưởng</h1>
+</header>
+
+<div class="container">
+  <h2>Thêm Công Nhân</h2>
+  <div class="form-group">
+    <label for="stt">STT:</label>
+    <input type="number" id="stt" placeholder="Nhập STT">
+  </div>
+  <div class="form-group">
+    <label for="hoTen">Họ và Tên:</label>
+    <input type="text" id="hoTen" placeholder="Nhập Họ và Tên">
+  </div>
+  <div class="form-group">
+    <label for="ngaySinh">Ngày Sinh:</label>
+    <input type="date" id="ngaySinh">
+  </div>
+  <div class="form-group">
+    <label for="diaChi">Địa Chỉ:</label>
+    <input type="text" id="diaChi" placeholder="Nhập Địa Chỉ">
+  </div>
+  <div class="form-group">
+    <label for="luong">Lương:</label>
+    <input type="number" id="luong" placeholder="Nhập Lương">
+  </div>
+  <div class="form-group">
+    <label for="chucVu">Chức Vụ:</label>
+    <input type="text" id="chucVu" placeholder="Nhập Chức Vụ">
+  </div>
+  <button onclick="addEmployee()">Thêm Công Nhân</button>
+  <div class="alert" id="error-message"></div>
+
+  <h2>Danh Sách Công Nhân</h2>
+  <button onclick="sortEmployeesBySalary()">Sắp Xếp Theo Lương</button>
+  <table>
+    <thead>
+    <tr>
+      <th>STT</th>
+      <th>Họ và Tên</th>
+      <th>Ngày Sinh</th>
+      <th>Địa Chỉ</th>
+      <th>Lương</th>
+      <th>Chức Vụ</th>
+    </tr>
+    </thead>
+    <tbody id="employeeList">
+    <!-- Danh sách công nhân sẽ được hiển thị ở đây -->
+    </tbody>
+  </table>
+</div>
+
+<script>
+  class Employee {
+    constructor(stt, hoTen, ngaySinh, diaChi, luong, chucVu) {
+      this.stt = stt;
+      this.hoTen = hoTen;
+      this.ngaySinh = ngaySinh;
+      this.diaChi = diaChi;
+      this.luong = luong;
+      this.chucVu = chucVu;
+    }
+
+    displayRow() {
+      return `
+        <tr>
+          <td>${this.stt}</td>
+          <td>${this.hoTen}</td>
+          <td>${this.ngaySinh}</td>
+          <td>${this.diaChi}</td>
+          <td>${this.luong}</td>
+          <td>${this.chucVu}</td>
+        </tr>
+      `;
+    }
+  }
+  let employees = [];
+
+  function addEmployee() {
+    const stt = document.getElementById('stt').value;
+    const hoTen = document.getElementById('hoTen').value;
+    const ngaySinh = document.getElementById('ngaySinh').value;
+    const diaChi = document.getElementById('diaChi').value;
+    const luong = document.getElementById('luong').value;
+    const chucVu = document.getElementById('chucVu').value;
+
+    const errorMessage = document.getElementById('error-message');
+    errorMessage.innerHTML = '';
+
+    if (!stt || !hoTen || !ngaySinh || !diaChi || !luong || !chucVu) {
+      errorMessage.innerHTML = 'Vui lòng điền đầy đủ thông tin!';
+      return;
+    }
+
+    const employee = new Employee(stt, hoTen, ngaySinh, diaChi, luong, chucVu);
+    employees.push(employee);
+
+    displayEmployees();
+    clearInputFields();
+  }
+
+  function displayEmployees() {
+    const employeeList = document.getElementById('employeeList');
+    employeeList.innerHTML = '';
+
+    employees.forEach(employee => {
+      employeeList.innerHTML += employee.displayRow();
+    });
+  }
+
+  function sortEmployeesBySalary() {
+    employees.sort((a, b) => a.luong - b.luong);
+    displayEmployees();
+  }
+
+  function clearInputFields() {
+    document.getElementById('stt').value = '';
+    document.getElementById('hoTen').value = '';
+    document.getElementById('ngaySinh').value = '';
+    document.getElementById('diaChi').value = '';
+    document.getElementById('luong').value = '';
+    document.getElementById('chucVu').value = '';
+  }
+</script>
+
+</body>
+</html>
