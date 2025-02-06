@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tính Số Ngày Trong Tháng</title>
+</head>
+<body>
+<div class="container">
+  <div class="form-group">
+    <label for="month">Chọn Tháng:</label>
+    <input type="number" id="month" placeholder="Nhập Tháng ">
+  </div>
+
+  <div class="form-group">
+    <label for="year">Nhập Năm:</label>
+    <input type="number" id="year" placeholder="Nhập Năm">
+  </div>
+
+  <button onclick="calculateDays()">Tính Số Ngày</button>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+  function calculateDays() {
+    const month = parseInt(document.getElementById("month").value);
+    const year = parseInt(document.getElementById("year").value);
+    const resultDiv = document.getElementById("result");
+    // Kiểm tra đầu vào hợp lệ
+    if (isNaN(month) || isNaN(year) || month < 1 || month > 12 || year < 1) {
+      resultDiv.innerHTML = "Vui lòng nhập tháng và năm hợp lệ.";
+      return;
+    }
+    const date = new Date(year, month, 0)
+    const daysInMonth = date.getDate();
+    resultDiv.innerHTML = `Tháng ${month} năm ${year} có ${daysInMonth} ngày.`;
+  }
+</script>
+
+</body>
+</html>
