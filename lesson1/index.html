@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bài1</title>
+</head>
+<body>
+<script>
+    function averAge3() {
+        let arr = [];
+        let numElements = parseInt(prompt("Nhập số phần tử của mảng không quá 50:"));
+        if (numElements > 50) {
+            console.log("Số phần tử không  vượt quá 50.");
+            return;
+        }
+        for (let i = 0; i < numElements; i++) {
+            let num = parseInt(prompt(`Nhập phần tử thứ ${i + 1}:`));
+            arr.push(num);
+        }
+        console.log("Mảng đã nhập:", arr);
+        let divisibleBy3 = arr.filter(num => num % 3 === 0);
+        if (divisibleBy3.length === 0) {
+            console.log("Không có số nào chia hết cho 3 trong mảng.");
+            return;
+        }
+        let sum = divisibleBy3.reduce((acc, curr) => acc + curr, 0);
+        let average = sum / divisibleBy3.length;
+        console.log("Trung bình cộng của các số chia hết cho 3 là:", average);
+    }
+    averAge3();
+</script>
+</body>
+</html>
